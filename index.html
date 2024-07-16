@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Comissão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 10px; /* Ajuste o padding para telas menores */
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #ddd;
+        }
+        .header img {
+            width: 200px; /* Ajuste o tamanho do logo para dispositivos móveis */
+            height: auto;
+        }
+        .container {
+            max-width: 90%; /* Ajuste a largura máxima para telas menores */
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em; /* Ajuste o tamanho da fonte para melhor visualização */
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+        .result {
+            font-size: 1.2em; /* Ajuste o tamanho da fonte para dispositivos móveis */
+            font-weight: bold;
+            text-align: center;
+            color: #4caf50; /* Verde para a comissão */
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #4caf50;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            position: relative;
+        }
+        /* Animação da comissão */
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .explode {
+            animation: explode 2s ease-out;
+        }
+
+        /* Media Queries para dispositivos móveis */
+        @media (max-width: 768px) {
+            .header img {
+                width: 150px; /* Reduzir o tamanho do logo em dispositivos menores */
+            }
+            h1 {
+                font-size: 1.2em; /* Ajusta o tamanho da fonte do título */
+            }
+            .result {
+                font-size: 1em; /* Ajusta o tamanho da fonte dos resultados */
+                padding: 8px; /* Ajusta o padding para telas menores */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header img {
+                width: 120px; /* Reduz ainda mais o tamanho do logo em telas pequenas */
+            }
+            .container {
+                padding: 15px; /* Ajusta o padding do container em telas menores */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <div class="container">
+        <h1>Calculadora de Comissão</h1>
+        <label for="valorCredito">Selecione o valor da carta de crédito:</label>
+        <select id="valorCredito">
+            <option value="" disabled selected>Selecione o valor da carta de crédito</option>
+            <option value="103926.60">R$ 103.926,60</option>
+            <option value="98729.32">R$ 98.729,32</option>
+            <option value="93533.04">R$ 93.533,04</option>
+            <option value="88336.76">R$ 88.336,76</option>
+            <option value="83140.48">R$ 83.140,48</option>
+            <option value="77944.20">R$ 77.944,20</option>
+            <option value="72747.92">R$ 72.747,92</option>
+            <option value="67551.64">R$ 67.551,64</option>
+            <option value="62355.36">R$ 62.355,36</option>
+            <option value="57159.08">R$ 57.159,08</option>
+            <option value="51962.80">R$ 51.962,80</option>
+            <option value="46766.52">R$ 46.766,52</option>
+            <option value="41570.24">R$ 41.570,24</option>
+            <option value="38452.47">R$ 38.452,47</option>
+            <option value="36373.96">R$ 36.373,96</option>
+            <option value="33775.82">R$ 33.775,82</option>
+        </select>
+        <div class="result" id="resultadoComissao">A comissão será exibida aqui</div>
+    </div>
+
+    <!-- Efeito sonoro da caixa registradora -->
+    <!--<audio id="audio" src="https://www.soundjay.com/button/beep-07.wav"></audio> -->
+
+    <script>
+        document.getElementById('valorCredito').addEventListener('change', function() {
+            const valorCredito = parseFloat(this.value);
+            const comissao = valorCredito * 0.004; // Comissão de 0,4%
+
+            const resultadoComissao = document.getElementById('resultadoComissao');
+            resultadoComissao.innerText = `Comissão: R$ ${comissao.toFixed(2)}`;
+            
+            // Adiciona a classe de animação
+            resultadoComissao.classList.add('explode');
+            
+            // Reproduz o efeito sonoro
+            // const audio = document.getElementById('audio');
+            // audio.play();
+            
+            // Remove a classe após a animação para permitir que seja reaplicada
+            setTimeout(() => {
+                resultadoComissao.classList.remove('explode');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
