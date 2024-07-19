@@ -13,17 +13,17 @@
         }
         .header {
             text-align: center;
-            padding: 20px 10px; /* Ajuste o padding para telas menores */
+            padding: 20px 10px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid #ddd;
         }
         .header img {
-            width: 200px; /* Ajuste o tamanho do logo para dispositivos móveis */
+            width: 200px;
             height: auto;
         }
         .container {
-            max-width: 90%; /* Ajuste a largura máxima para telas menores */
+            max-width: 90%;
             margin: 20px auto;
             background: #fff;
             padding: 20px;
@@ -34,7 +34,7 @@
             text-align: center;
             color: #333;
             margin-bottom: 20px;
-            font-size: 1.5em; /* Ajuste o tamanho da fonte para melhor visualização */
+            font-size: 1.5em;
         }
         label {
             display: block;
@@ -51,18 +51,23 @@
             font-size: 16px;
         }
         .result {
-            font-size: 1.2em; /* Ajuste o tamanho da fonte para dispositivos móveis */
-            font-weight: bold;
             text-align: center;
-            color: #4caf50; /* Verde para a comissão */
             margin-top: 20px;
             padding: 10px;
-            border: 2px solid #4caf50;
+            border: 2px solid #ddd;
             border-radius: 4px;
             background-color: #e8f5e9;
             position: relative;
         }
-        /* Animação da comissão */
+        .result div {
+            margin-bottom: 5px;
+        }
+        .comissao {
+            margin-top: 2cm;
+            font-size: 1.5em;
+            color: #4caf50;
+            border-color: #4caf50;
+        }
         @keyframes explode {
             0% {
                 transform: scale(1);
@@ -80,79 +85,132 @@
         .explode {
             animation: explode 2s ease-out;
         }
-
-        /* Media Queries para dispositivos móveis */
         @media (max-width: 768px) {
             .header img {
-                width: 150px; /* Reduzir o tamanho do logo em dispositivos menores */
+                width: 150px;
             }
             h1 {
-                font-size: 1.2em; /* Ajusta o tamanho da fonte do título */
+                font-size: 1.2em;
             }
             .result {
-                font-size: 1em; /* Ajusta o tamanho da fonte dos resultados */
-                padding: 8px; /* Ajusta o padding para telas menores */
+                font-size: 1em;
+                padding: 8px;
+            }
+            .comissao {
+                font-size: 1.2em;
+                margin-top: 1.5cm;
             }
         }
-
         @media (max-width: 480px) {
             .header img {
-                width: 120px; /* Reduz ainda mais o tamanho do logo em telas pequenas */
+                width: 120px;
             }
             .container {
-                padding: 15px; /* Ajusta o padding do container em telas menores */
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="image/logo.png" alt="Logo">
+        <img src="logo.png" alt="Logo">
     </div>
     <div class="container">
         <h1>Calculadora de Comissão</h1>
-        <label for="valorCredito">Selecione o valor da carta de crédito:</label>
-        <select id="valorCredito">
-            <option value="" disabled selected>Selecione o valor da carta de crédito</option>
-            <option value="103926.60">R$ 103.926,60</option>
-            <option value="98729.32">R$ 98.729,32</option>
-            <option value="93533.04">R$ 93.533,04</option>
-            <option value="88336.76">R$ 88.336,76</option>
-            <option value="83140.48">R$ 83.140,48</option>
-            <option value="77944.20">R$ 77.944,20</option>
-            <option value="72747.92">R$ 72.747,92</option>
-            <option value="67551.64">R$ 67.551,64</option>
-            <option value="62355.36">R$ 62.355,36</option>
-            <option value="57159.08">R$ 57.159,08</option>
-            <option value="51962.80">R$ 51.962,80</option>
-            <option value="46766.52">R$ 46.766,52</option>
-            <option value="41570.24">R$ 41.570,24</option>
-            <option value="38452.47">R$ 38.452,47</option>
-            <option value="36373.96">R$ 36.373,96</option>
-            <option value="33775.82">R$ 33.775,82</option>
+        <label for="tabela">Selecione a tabela:</label>
+        <select id="tabela">
+            <option value="" disabled selected>Selecione a tabela</option>
+            <option value="delta">TABELA DELTA BR</option>
+            <option value="auto">TABELA AUTO BR</option>
         </select>
-        <div class="result" id="resultadoComissao">A comissão será exibida aqui</div>
+        <label for="valorCredito">Selecione o valor da carta de crédito:</label>
+        <select id="valorCredito" disabled>
+            <option value="" disabled selected>Selecione a tabela primeiro</option>
+        </select>
+        <div class="result" id="resultadoComissao">
+            <div id="credito"></div>
+            <div id="primeiraParcela"></div>
+            <div id="proximasParcelas"></div>
+            <div id="comissao" class="comissao">A comissão será exibida aqui</div>
+        </div>
     </div>
 
-    <!-- Efeito sonoro da caixa registradora -->
-    <!--<audio id="audio" src="https://www.soundjay.com/button/beep-07.wav"></audio> -->
-
     <script>
-        document.getElementById('valorCredito').addEventListener('change', function() {
-            const valorCredito = parseFloat(this.value);
-            const comissao = valorCredito * 0.004; // Comissão de 0,4%
+        const dadosParcelasDelta = {
+            "33775.82": { primeiraParcela: 572.51, proximasParcelas: 438.82 },
+            "36373.96": { primeiraParcela: 615.55, proximasParcelas: 472.58 },
+            "38452.47": { primeiraParcela: 651.78, proximasParcelas: 499.58 },
+            "41570.52": { primeiraParcela: 704.62, proximasParcelas: 540.09 },
+            "46766.52": { primeiraParcela: 792.70, proximasParcelas: 607.60 },
+            "51962.80": { primeiraParcela: 880.78, proximasParcelas: 675.11 },
+            "57159.08": { primeiraParcela: 968.86, proximasParcelas: 742.62 },
+            "62355.36": { primeiraParcela: 1056.94, proximasParcelas: 810.13 },
+            "67551.64": { primeiraParcela: 1145.01, proximasParcelas: 877.64 }
+        };
 
-            const resultadoComissao = document.getElementById('resultadoComissao');
-            resultadoComissao.innerText = `Comissão: R$ ${comissao.toFixed(2)}`;
-            
-            // Adiciona a classe de animação
+        const dadosParcelasAuto = {
+            "51962.80": { primeiraParcela: 854.30, proximasParcelas: 654.81 },
+            "57159.08": { primeiraParcela: 939.73, proximasParcelas: 720.30 },
+            "62355.36": { primeiraParcela: 1025.16, proximasParcelas: 785.78 },
+            "67551.64": { primeiraParcela: 1110.59, proximasParcelas: 851.26 },
+            "72747.92": { primeiraParcela: 1196.02, proximasParcelas: 916.74 },
+            "77944.20": { primeiraParcela: 1281.45, proximasParcelas: 982.22 },
+            "83140.48": { primeiraParcela: 1366.88, proximasParcelas: 1047.70 },
+            "88336.76": { primeiraParcela: 1452.31, proximasParcelas: 1113.18 },
+            "93533.04": { primeiraParcela: 1537.74, proximasParcelas: 1178.67 },
+            "98729.32": { primeiraParcela: 1623.17, proximasParcelas: 1244.15 },
+            "103926.60": { primeiraParcela: 1708.60, proximasParcelas: 1309.63 }
+        };
+
+        const selectTabela = document.getElementById('tabela');
+        const selectCredito = document.getElementById('valorCredito');
+
+        selectTabela.addEventListener('change', function() {
+            const tabela = this.value;
+            let opcoesCredito;
+
+            selectCredito.innerHTML = '<option value="" disabled selected>Selecione o valor da carta de crédito</option>';
+
+            if (tabela === 'delta') {
+                opcoesCredito = Object.keys(dadosParcelasDelta);
+            } else if (tabela === 'auto') {
+                opcoesCredito = Object.keys(dadosParcelasAuto);
+            }
+
+            opcoesCredito.forEach(valor => {
+                const option = document.createElement('option');
+                option.value = valor;
+                option.textContent = `R$ ${parseFloat(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                selectCredito.appendChild(option);
+            });
+
+            selectCredito.disabled = false;
+        });
+
+        selectCredito.addEventListener('change', function() {
+            const valorCredito = parseFloat(this.value);
+            const tabela = selectTabela.value;
+            const comissao = valorCredito * 0.004;
+            let dados;
+
+            if (tabela === 'delta') {
+                dados = dadosParcelasDelta[this.value];
+            } else if (tabela === 'auto') {
+                dados = dadosParcelasAuto[this.value];
+            }
+
+            const resultadoComissao = document.getElementById('comissao');
+            const credito = document.getElementById('credito');
+            const primeiraParcela = document.getElementById('primeiraParcela');
+            const proximasParcelas = document.getElementById('proximasParcelas');
+
+            credito.innerText = `Valor do crédito: R$ ${valorCredito.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            primeiraParcela.innerText = `Primeira parcela: R$ ${dados.primeiraParcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            proximasParcelas.innerText = `Próximas parcelas: R$ ${dados.proximasParcelas.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            resultadoComissao.innerText = `Comissão: R$ ${comissao.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
             resultadoComissao.classList.add('explode');
             
-            // Reproduz o efeito sonoro
-            // const audio = document.getElementById('audio');
-            // audio.play();
-            
-            // Remove a classe após a animação para permitir que seja reaplicada
             setTimeout(() => {
                 resultadoComissao.classList.remove('explode');
             }, 2000);
@@ -160,3 +218,4 @@
     </script>
 </body>
 </html>
+
