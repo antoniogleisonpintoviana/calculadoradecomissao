@@ -140,6 +140,40 @@
 	         <br>
 	         <br>
 	         <a style='position:absolute;left:45%' href="criarpanfletos.html">Criar panfleto</a>
+	     <div id="popup" style="display: none; position: fixed; top: 20px; right: 20px; width: 300px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); background: #fff; z-index: 1000; padding: 10px;">
+        <div id="popup-header" style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+            <button onclick="togglePopup()" style="background: #f5f5f5; border: none; cursor: pointer; padding: 5px 10px; font-size: 1.2em;">×</button>
+        </div>
+        <div class="calculator" style="display: grid; gap: 5px;">
+            <input type="text" id="display" disabled style="width: 100%; height: 60px; border: 1px solid #ccc; background: #333; color: #fff; text-align: right; font-size: 2em; padding: 10px; box-sizing: border-box;">
+            <div class="buttons" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                <button onclick="clearDisplay()" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">C</button>
+                <button onclick="appendToDisplay('1')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">1</button>
+                <button onclick="appendToDisplay('2')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">2</button>
+                <button onclick="appendToDisplay('3')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">3</button>
+                <button onclick="appendToDisplay('+')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">+</button>
+
+                <button onclick="appendToDisplay('4')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">4</button>
+                <button onclick="appendToDisplay('5')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">5</button>
+                <button onclick="appendToDisplay('6')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">6</button>
+                <button onclick="appendToDisplay('-')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">-</button>
+
+                <button onclick="appendToDisplay('7')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">7</button>
+                <button onclick="appendToDisplay('8')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">8</button>
+                <button onclick="appendToDisplay('9')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">9</button>
+                <button onclick="appendToDisplay('*')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">*</button>
+
+                <button onclick="appendToDisplay('0')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">0</button>
+                <button onclick="appendToDisplay('.')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">.</button>
+                <button onclick="calculate()" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">=</button>
+                <button onclick="appendToDisplay('/')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">/</button>
+
+                <button onclick="appendToDisplay('%')" style="width: 100%; height: 60px; border: 1px solid #ddd; background: #ddd; font-size: 1.5em; cursor: pointer; transition: background 0.3s;">%</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calculadora.js"></script>
 		
 		<!--file:///C:/Users/gleisao/OneDrive/%C3%81rea%20de%20Trabalho/gleison/sistema/cadastrarclientes.html -->
         <!--<button id="showFormButton">Cadastrar Cliente</button> --> <!-- Botão para mostrar o formulário -->
