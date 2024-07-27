@@ -144,16 +144,76 @@
 	         <br>
 	         <br>
 	         
-	      <button style='position:absolute;left:45%' id="ver" onclick="mostrarCalculadora()">Mostrar Calculadora</button>
-<iframe src="calculadora.html" id="calculadora" style="height:200px;width:300px;visibility:hidden"></iframe>
+	      <style>
+        /* Estilo da janela modal */
+        .modal {
+            display: none; /* Oculta a janela por padrão */
+            position: fixed; /* Fixa a janela na tela */
+            z-index: 1; /* Fica sobre o conteúdo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Adiciona rolagem se necessário */
+            background-color: rgb(0,0,0); /* Cor de fundo do overlay */
+            background-color: rgba(0,0,0,0.4); /* Fundo transparente */
+        }
+
+        /* Estilo do conteúdo da janela modal */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centraliza verticalmente e horizontalmente */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Largura da janela modal */
+            max-width: 600px; /* Largura máxima da janela modal */
+        }
+
+        /* Estilo do botão de fechar */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+	    <button id="ver">Mostrar Calculadora</button>
+
+<!-- A janela modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe src="calculadora.html" style="width:100%; height:300px; border:none;"></iframe>
+    </div>
+</div>
 
 <script>
-    function mostrarCalculadora() {
-        var calculadora = document.getElementById("calculadora");
-        if (calculadora.style.visibility === 'hidden') {
-            calculadora.style.visibility = 'visible';
-        } else {
-            calculadora.style.visibility = 'hidden';
+    // Obter os elementos da janela modal e do botão
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("ver");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Quando o usuário clicar no botão, abrir a janela modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Quando o usuário clicar no botão de fechar, fechar a janela modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Quando o usuário clicar fora da janela modal, fechar a janela modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
 </script>
