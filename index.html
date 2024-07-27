@@ -144,13 +144,17 @@
 	         <br>
 	         <br>
 	         
-	      <button id="ver" onclick="mostrarCalculadora()">Mostrar Calculadora</button>
+	      <button style='position:absolute;left:45%' id="ver" onclick="mostrarCalculadora()">Mostrar Calculadora</button>
 <iframe src="calculadora.html" id="calculadora" style="height:200px;width:300px;visibility:hidden"></iframe>
 
 <script>
     function mostrarCalculadora() {
         var calculadora = document.getElementById("calculadora");
-        calculadora.style.visibility = 'visible';
+        if (calculadora.style.visibility === 'hidden') {
+            calculadora.style.visibility = 'visible';
+        } else {
+            calculadora.style.visibility = 'hidden';
+        }
     }
 </script>
 
