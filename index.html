@@ -147,6 +147,55 @@
 	         <br>
 	         <br>
 	    <button style='position:absolute;left:45%'  id="ver">Mostrar Calculadora</button>
+	    <br>
+    <br>
+    <button id="openModalBtn" style="'position:absolute;left:45%;background-color: #0566B1; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Fazer Anotações</button>
+
+    <div id="myModal" style="display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
+        <div style="background-color: #fff; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); border-radius: 10px;">
+            <span id="closeModalBtn" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2>Digite suas anotações</h2>
+            <textarea id="notes" style="width: 100%; height: 200px; margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; resize: none;" placeholder="Escreva aqui..."></textarea>
+            <button style="background-color: #0566B1; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px;" onclick="saveNotes()">Salvar</button>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var openModalBtn = document.getElementById("openModalBtn");
+        var closeModalBtn = document.getElementById("closeModalBtn");
+        var notesTextarea = document.getElementById("notes");
+
+        // Carregar as anotações salvas do localStorage ao abrir o modal
+        openModalBtn.onclick = function() {
+            var savedNotes = localStorage.getItem("userNotes");
+            if (savedNotes) {
+                notesTextarea.value = savedNotes;
+            }
+            modal.style.display = "block";
+        }
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function saveNotes() {
+            var notes = notesTextarea.value;
+            if (notes.trim() !== "") {
+                localStorage.setItem("userNotes", notes);
+                alert("Anotações salvas!");
+                modal.style.display = "none";
+            } else {
+                alert("Por favor, digite algo.");
+            }
+        }
+    </script>
 	         
 	       <style>
         
